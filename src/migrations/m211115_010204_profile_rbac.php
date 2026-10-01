@@ -35,15 +35,17 @@ class m211115_010204_profile_rbac extends Migration
         $siteWebProfiletEdit->description = 'Site Web Profile Edit';
         $auth->add($siteWebProfiletEdit);
         $auth->addChild($admin,  $siteWebProfiletEdit);
-        $auth->addChild($user,  $siteWebProfiletEdit);
-
+        if ($user) {
+            $auth->addChild($user,  $siteWebProfiletEdit);
+        }
 
         $siteWebProfileEditPassword = $auth->createPermission('siteWebProfileEditPassword');
         $siteWebProfileEditPassword->description = 'Site Web Profile Change Password';
         $auth->add($siteWebProfileEditPassword);
         $auth->addChild($admin, $siteWebProfileEditPassword);
-        $auth->addChild($user, $siteWebProfileEditPassword);
-
+        if ($user) {
+            $auth->addChild($user, $siteWebProfileEditPassword);
+        }
 
         $siteApiProfileEditOwn = $auth->createPermission('siteApiProfileEditOwn');
         $siteApiProfileEditOwn->description = 'Site Api Profile EditOwn';
@@ -53,8 +55,6 @@ class m211115_010204_profile_rbac extends Migration
         $siteApiProfileEdit = $auth->getPermission('siteApiProfileEdit');
         $auth->addChild($siteApiProfileEditOwn, $siteApiProfileEdit);
 
-
-
         $siteApiProfileEditPasswordOwn = $auth->createPermission('siteApiProfileEditPasswordOwn');
         $siteApiProfileEditPasswordOwn->description = 'Site Api Profile Edit PasswordOwn';
         $siteApiProfileEditPasswordOwn->ruleName = $rule->name;
@@ -63,23 +63,25 @@ class m211115_010204_profile_rbac extends Migration
         $siteApiProfileEditPassword = $auth->getPermission('siteApiProfileEditPassword');
         $auth->addChild($siteApiProfileEditPasswordOwn, $siteApiProfileEditPassword);
 
-
         $siteWebProfiletEditOwn = $auth->createPermission('siteWebProfileEditOwn');
         $siteWebProfiletEditOwn->description = 'Site Web Profile EditOwn';
         $siteWebProfiletEditOwn->ruleName = $rule->name;
         $auth->add($siteWebProfiletEditOwn);
         $auth->addChild($admin,  $siteWebProfiletEditOwn);
-        $auth->addChild($user,  $siteWebProfiletEditOwn);
+        if ($user) {
+            $auth->addChild($user,  $siteWebProfiletEditOwn);
+        }
         $siteWebProfileEdit = $auth->getPermission('siteWebProfileEdit');
         $auth->addChild($siteWebProfiletEditOwn, $siteWebProfileEdit);
-
 
         $siteWebProfileEditPasswordOwn = $auth->createPermission('siteWebProfileEditPasswordOwn');
         $siteWebProfileEditPasswordOwn->description = 'Site Web Profile Edit PasswordOwn';
         $siteWebProfileEditPasswordOwn->ruleName = $rule->name;
         $auth->add($siteWebProfileEditPasswordOwn);
         $auth->addChild($admin, $siteWebProfileEditPasswordOwn);
-        $auth->addChild($user, $siteWebProfileEditPasswordOwn);
+        if ($user) {
+            $auth->addChild($user, $siteWebProfileEditPasswordOwn);
+        }
         $siteWebProfileEditPassword = $auth->getPermission('siteWebProfileEditPassword');
         $auth->addChild($siteWebProfileEditPasswordOwn, $siteWebProfileEditPassword);
 
